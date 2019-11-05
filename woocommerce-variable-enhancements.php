@@ -46,7 +46,8 @@ class WooCommerce_Variation_Enhancements {
     }
 
     public function initialize_classes() {
-        $this->admin = new WCVE_Admin( $this );
+        $this->variation_prices = new WCVE_Variation_Prices( $this );
+        $this->variation_ajax = new WCVE_Variation_Ajax( $this );
     }
 
 	//
