@@ -20,7 +20,8 @@ class WooCommerce_Variation_Enhancements {
     // @var string plugin uri
     protected $plugin_url = false;
 
-    public $admin;
+    public $variation_prices;
+    public $variation_ajax;
 
     public function __construct() {
         spl_autoload_register( array( $this, 'autoloader') );
