@@ -13,20 +13,20 @@
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 class WooCommerce_Variation_Enhancements {
-	public $plugin_slug = 'wcve';
+    public $plugin_slug = 'wcve';
 
-	// @var string plugin path without trailing slash
-	protected $plugin_path = false;
-	// @var string plugin uri
-	protected $plugin_url = false;
+    // @var string plugin path without trailing slash
+    protected $plugin_path = false;
+    // @var string plugin uri
+    protected $plugin_url = false;
 
     public $admin;
 
     public function __construct() {
-		spl_autoload_register( array( $this, 'autoloader') );
+        spl_autoload_register( array( $this, 'autoloader') );
 
-		$this->plugin_path 	= str_replace('\\', '/', plugin_dir_path( __FILE__ ) );
-		$this->plugin_url 	= plugins_url( '/', __FILE__ );
+        $this->plugin_path 	= str_replace('\\', '/', plugin_dir_path( __FILE__ ) );
+        $this->plugin_url 	= plugins_url( '/', __FILE__ );
 
         if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
             add_action('admin_notices', array( $this, 'enable_woocommerce_admin_notice' ) );
@@ -50,26 +50,22 @@ class WooCommerce_Variation_Enhancements {
         $this->variation_ajax = new WCVE_Variation_Ajax( $this );
     }
 
-	//
-	// Returns the plugin's path without a trailing slash
-	// @return string
-	//
-	public function get_path( $subpath = '' ) {
+    //
+    // Returns the plugin's path without a trailing slash
+    // @return string
+    //
+    public function get_path( $subpath = '' ) {
 
-		return $this->plugin_path . ltrim( $subpath, '/' );
-	}
+        return $this->plugin_path . ltrim( $subpath, '/' );
+    }
 
-	//
-	// AutoLoad Classes from /classes
-	//
+    //
+    // AutoLoad Classes from /classes
+    //
     function autoloader( $class_name ) {
 
         if ( 0 === stripos( $class_name . '_', $this->plugin_slug ) ) {
             $class_directory = $this->get_path('classes') . DIRECTORY_SEPARATOR;
-
-			// if ( strrpos( $class_name, 'Controller' ) === strlen( $class_name ) - 10 ) {
-			// 	$class_directory .= 'controllers' . DIRECTORY_SEPARATOR;
-			// }
 
             $class_without_slug = str_replace( $class_name . '_', '', $class_name );
             $class_file = 'class-' . strtolower( str_replace( '_', '-', $class_without_slug ) ) . '.php';
